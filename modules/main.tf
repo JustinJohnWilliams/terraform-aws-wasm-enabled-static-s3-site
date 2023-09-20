@@ -16,3 +16,11 @@ module "bucket" {
   site_index_page = var.site_index_page
   tags            = local.tags
 }
+
+module "lambda" {
+  source = "./lambda"
+
+  function_name  = var.function_name
+  aws_account_id = var.aws_account_id
+  tags           = local.tags
+}
