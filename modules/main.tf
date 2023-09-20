@@ -21,7 +21,8 @@ module "bucket" {
 }
 
 module "lambda" {
-  source = "./lambda"
+  source     = "./lambda"
+  depends_on = [module.bucket]
 
   function_name  = local.function_name
   aws_account_id = var.aws_account_id
@@ -30,7 +31,8 @@ module "lambda" {
 }
 
 module "cloudfront" {
-  source = "./cloudfront"
+  source     = "./cloudfront"
+  depends_on = [module.bucket, module.lambda]
 
   bucket_domain    = module.bucket.bucket.bucket_domain_name
   website_endpoint = module.bucket.bucket.website_endpoint
