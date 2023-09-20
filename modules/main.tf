@@ -15,3 +15,11 @@ module "bucket" {
   site_index_page = var.site_index_page
   tags            = local.tags
 }
+
+module "lambda" {
+  source   = "./lambda"
+  provider = aws.east
+
+  function_name = var.function_name
+  tags          = local.tags
+}
