@@ -23,3 +23,9 @@ module "lambda" {
   aws_account_id = var.aws_account_id
   tags           = local.tags
 }
+
+module "cloudfront" {
+  source = "./cloudfront"
+
+  tags = local.tags
+}
