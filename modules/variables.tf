@@ -17,23 +17,13 @@ variable "env" {
   type        = string
 }
 
-<<<<<<< HEAD
-variable "bucket_name" {
-  description = "the name of the s3 bucket to hold the static content"
+variable "project_name" {
+  description = "the project name"
   type        = string
 }
 
 variable "zip_dir" {
   description = "the zip dir of the site contents"
-  type        = string
-}
-
-variable "function_name" {
-  description = "the name of the function"
-=======
-variable "project_name" {
-  description = "the project name"
->>>>>>> 9ae2c89 (make it purdy)
   type        = string
 }
 

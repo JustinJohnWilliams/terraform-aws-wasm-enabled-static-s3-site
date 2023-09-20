@@ -12,8 +12,8 @@ locals {
 module "bucket" {
   source = "./bucket"
 
-  zip_dir         = var.zip_dir
   bucket_name     = local.bucket_name
+  zip_dir         = var.zip_dir
   aws_account_id  = var.aws_account_id
   site_index_page = var.site_index_page
 
