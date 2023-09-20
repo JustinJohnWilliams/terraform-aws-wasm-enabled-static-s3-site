@@ -24,3 +24,13 @@ module "lambda" {
   aws_account_id = var.aws_account_id
   tags           = local.tags
 }
+
+module "cloudfront" {
+  source = "./cloudfront"
+
+  bucket_domain    = module.bucket.bucket_domain_name
+  website_endpoint = module.bucket.website_endpoint
+  lambda_arn       = "${module.lambda.lambda.arn}:${module.lambda.lambda.version}"
+
+  tags = local.tags
+}
