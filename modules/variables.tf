@@ -17,6 +17,7 @@ variable "env" {
   type        = string
 }
 
+<<<<<<< HEAD
 variable "bucket_name" {
   description = "the name of the s3 bucket to hold the static content"
   type        = string
@@ -29,6 +30,10 @@ variable "zip_dir" {
 
 variable "function_name" {
   description = "the name of the function"
+=======
+variable "project_name" {
+  description = "the project name"
+>>>>>>> 9ae2c89 (make it purdy)
   type        = string
 }
 
