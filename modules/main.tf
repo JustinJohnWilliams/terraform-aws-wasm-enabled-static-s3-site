@@ -4,24 +4,28 @@ terraform {
 }
 
 locals {
-  tags = merge(var.default_tags, var.tags)
+  bucket_name   = var.project_name
+  function_name = "${var.project_name}-func"
+  tags          = merge(var.default_tags, var.tags)
 }
 
 module "bucket" {
   source = "./bucket"
 
-  bucket_name     = var.bucket_name
+  bucket_name     = loca.bucket_name
   aws_account_id  = var.aws_account_id
   site_index_page = var.site_index_page
-  tags            = local.tags
+
+  tags = local.tags
 }
 
 module "lambda" {
   source = "./lambda"
 
-  function_name  = var.function_name
+  function_name  = local.function_name
   aws_account_id = var.aws_account_id
-  tags           = local.tags
+
+  tags = local.tags
 }
 
 module "cloudfront" {
