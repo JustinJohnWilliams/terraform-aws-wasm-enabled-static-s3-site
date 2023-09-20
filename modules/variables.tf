@@ -22,6 +22,11 @@ variable "project_name" {
   type        = string
 }
 
+variable "zip_dir" {
+  description = "the zip dir of the site contents"
+  type        = string
+}
+
 variable "default_tags" {
   type = map(any)
 }

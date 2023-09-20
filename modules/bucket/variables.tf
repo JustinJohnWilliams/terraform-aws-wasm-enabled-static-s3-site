@@ -17,6 +17,11 @@ variable "site_index_page" {
   type        = string
 }
 
+variable "zip_dir" {
+  description = "the zip dir of the site contents"
+  type        = string
+}
+
 variable "tags" {
   type = map(any)
 }
