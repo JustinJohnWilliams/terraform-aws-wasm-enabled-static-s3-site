@@ -15,3 +15,7 @@ module "bucket" {
   site_index_page = var.site_index_page
   tags            = local.tags
 }
+
+module "lambd" {
+  source = "./lambda"
+}
