@@ -27,6 +27,11 @@ variable "zip_dir" {
   type        = string
 }
 
+variable "function_name" {
+  description = "the name of the function"
+  type        = string
+}
+
 variable "default_tags" {
   type = map(any)
 }
