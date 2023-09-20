@@ -4,29 +4,35 @@ terraform {
 }
 
 locals {
-  tags = merge(var.default_tags, var.tags)
+  bucket_name   = var.project_name
+  function_name = "${var.project_name}-func"
+  tags          = merge(var.default_tags, var.tags)
 }
 
 module "bucket" {
   source = "./bucket"
 
-  bucket_name     = var.bucket_name
+  bucket_name     = local.bucket_name
   zip_dir         = var.zip_dir
   aws_account_id  = var.aws_account_id
   site_index_page = var.site_index_page
-  tags            = local.tags
+
+  tags = local.tags
 }
 
 module "lambda" {
-  source = "./lambda"
+  source     = "./lambda"
+  depends_on = [module.bucket]
 
-  function_name  = var.function_name
+  function_name  = local.function_name
   aws_account_id = var.aws_account_id
-  tags           = local.tags
+
+  tags = local.tags
 }
 
 module "cloudfront" {
-  source = "./cloudfront"
+  source     = "./cloudfront"
+  depends_on = [module.bucket, module.lambda]
 
   bucket_domain    = module.bucket.bucket.bucket_domain_name
   website_endpoint = module.bucket.bucket.website_endpoint
