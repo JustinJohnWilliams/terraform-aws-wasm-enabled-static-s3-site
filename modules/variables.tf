@@ -17,13 +17,13 @@ variable "env" {
   type        = string
 }
 
-variable "zip_dir" {
-  description = "the zip dir of the site contents"
+variable "project_name" {
+  description = "the project name"
   type        = string
 }
 
-variable "project_name" {
-  description = "the project name"
+variable "zip_dir" {
+  description = "the zip dir of the site contents"
   type        = string
 }
 
