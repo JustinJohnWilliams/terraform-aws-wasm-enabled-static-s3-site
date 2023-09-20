@@ -17,13 +17,8 @@ variable "env" {
   type        = string
 }
 
-variable "bucket_name" {
-  description = "the name of the s3 bucket to hold the static content"
-  type        = string
-}
-
-variable "function_name" {
-  description = "the name of the function"
+variable "project_name" {
+  description = "the project name"
   type        = string
 }
 
