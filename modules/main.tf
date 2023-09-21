@@ -32,8 +32,8 @@ module "lambda" {
 module "cloudfront" {
   source = "./cloudfront"
 
-  bucket_domain    = module.bucket.bucket.bucket_domain_name
-  website_endpoint = module.bucket.bucket.website_endpoint
+  bucket_domain    = module.bucket.bucket_domain_name
+  website_endpoint = module.bucket.website_endpoint
   lambda_arn       = "${module.lambda.lambda.arn}:${module.lambda.lambda.version}"
 
   tags = local.tags
