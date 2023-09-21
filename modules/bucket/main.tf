@@ -66,24 +66,6 @@ resource "aws_s3_bucket_website_configuration" "website" {
 
 data "aws_iam_policy_document" "doc" {
   statement {
-    sid     = "EnforcedTLS"
-    effect  = "Deny"
-    actions = ["s3:*"]
-    resources = [
-      aws_s3_bucket.bucket.arn,
-      "${aws_s3_bucket.bucket.arn}/*",
-    ]
-    condition {
-      test     = "Bool"
-      variable = "aws:SecureTransport"
-      values   = ["false"]
-    }
-    principals {
-      identifiers = ["*"]
-      type        = "*"
-    }
-  }
-  statement {
     sid     = "RootAccess"
     effect  = "Allow"
     actions = ["s3:*"]
