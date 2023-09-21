@@ -25,7 +25,7 @@ resource "aws_lambda_function" "lambda" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name = "amir-sucks-he-really-really-sucks-func-role-9epx0xmv"
+  name = var.function_name
   path = "/service-role/"
 
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
