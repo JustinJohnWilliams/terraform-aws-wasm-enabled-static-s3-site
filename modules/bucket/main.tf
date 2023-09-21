@@ -119,28 +119,28 @@ data "aws_iam_policy_document" "doc" {
   }
 }
 
-resource "null_resource" "unzip_files" {
-  provisioner "local-exec" {
-    command = "unzip ${var.zip_dir} -d /tmp/${var.bucket_name}"
-  }
+#resource "null_resource" "unzip_files" {
+#  provisioner "local-exec" {
+#    command = "unzip ${var.zip_dir} -d /tmp/${var.bucket_name}"
+#  }
 
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-}
+#  triggers = {
+#    always_run = "${timestamp()}"
+#  }
+#}
 
-data "local_file" "website_files" {
-  depends_on = [null_resource.unzip_files]
-  for_each   = fileset("/tmp/${var.bucket_name}", "*.*")
-  filename   = each.value
-}
+#data "local_file" "website_files" {
+#  depends_on = [null_resource.unzip_files]
+#  for_each   = fileset("/tmp/${var.bucket_name}", "*.*")
+#  filename   = each.value
+#}
 
-resource "aws_s3_object" "website_file" {
-  depends_on = [aws_s3_bucket.bucket, null_resource.unzip_files]
-  for_each   = data.local_file.website_files
+#resource "aws_s3_object" "website_file" {
+#  depends_on = [aws_s3_bucket.bucket, null_resource.unzip_files]
+#  for_each   = data.local_file.website_files
 
-  bucket = aws_s3_bucket.bucket.bucket
-  key    = each.value
-  source = each.value
-  etag   = null #filemd5(each.value.filename)
-}
+#  bucket = aws_s3_bucket.bucket.bucket
+#  key    = each.value
+#  source = each.value
+#  etag   = null #filemd5(each.value.filename)
+#}
