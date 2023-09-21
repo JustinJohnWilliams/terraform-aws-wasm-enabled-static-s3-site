@@ -20,21 +20,21 @@ module "bucket" {
   tags = local.tags
 }
 
-module "lambda" {
-  source = "./lambda"
+#module "lambda" {
+#  source = "./lambda"
 
-  function_name  = local.function_name
-  aws_account_id = var.aws_account_id
+#  function_name  = local.function_name
+#  aws_account_id = var.aws_account_id
 
-  tags = local.tags
-}
+#  tags = local.tags
+#}
 
-module "cloudfront" {
-  source = "./cloudfront"
+#module "cloudfront" {
+#  source = "./cloudfront"
 
-  bucket_domain    = module.bucket.bucket.bucket_domain_name
-  website_endpoint = module.bucket.bucket.website_endpoint
-  lambda_arn       = "${module.lambda.lambda.arn}:${module.lambda.lambda.version}"
+#  bucket_domain    = module.bucket.bucket.bucket_domain_name
+#  website_endpoint = module.bucket.bucket.website_endpoint
+#  lambda_arn       = "${module.lambda.lambda.arn}:${module.lambda.lambda.version}"
 
-  tags = local.tags
-}
+#  tags = local.tags
+#}
