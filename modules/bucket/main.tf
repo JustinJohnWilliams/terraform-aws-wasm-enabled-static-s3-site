@@ -8,11 +8,6 @@ resource "aws_s3_bucket" "bucket" {
   tags = var.tags
 }
 
-#resource "aws_s3_bucket_acl" "bucket_acl" {
-#  bucket = aws_s3_bucket.bucket.id
-#  acl    = "public-read"
-#}
-
 resource "aws_s3_bucket_ownership_controls" "ownership_controls" {
   bucket = aws_s3_bucket.bucket.id
   rule {
@@ -51,6 +46,8 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.bucket.id
 
   policy = data.aws_iam_policy_document.doc.json
+
+  depends_on = [aws_s3_bucket_public_access_block.public_access_block, aws_s3_bucket_versioning.bucket_versioning, aws_s3_bucket_website_configuration.website]
 }
 
 resource "aws_s3_bucket_cors_configuration" "cors" {
@@ -120,27 +117,15 @@ data "aws_iam_policy_document" "doc" {
 }
 
 resource "null_resource" "unzip_files" {
-  provisioner "local-exec" {
-    command = "unzip ${var.zip_dir} -d /tmp/${var.bucket_name}"
-  }
-
   triggers = {
-    always_run = "${timestamp()}"
+    # we want to run the null_resource when the file changes
+    zip_md5 = filemd5(var.zip_dir)
   }
-}
+  provisioner "local-exec" {
+    command = <<EOT
+      unzip ${var.zip_dir} -d /tmp/${var.bucket_name}
 
-data "local_file" "website_files" {
-  depends_on = [null_resource.unzip_files]
-  for_each   = fileset("/tmp/${var.bucket_name}", "*.*")
-  filename   = each.value
-}
-
-resource "aws_s3_object" "website_file" {
-  depends_on = [aws_s3_bucket.bucket, null_resource.unzip_files]
-  for_each   = data.local_file.website_files
-
-  bucket = aws_s3_bucket.bucket.bucket
-  key    = each.value
-  source = each.value
-  etag   = filemd5(each.value)
+      aws s3 sync /tmp/${var.bucket_name} s3://${aws_s3_bucket.bucket.bucket}/
+    EOT
+  }
 }
