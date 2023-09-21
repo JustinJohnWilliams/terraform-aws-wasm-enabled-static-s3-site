@@ -47,7 +47,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 
   policy = data.aws_iam_policy_document.doc.json
 
-  depends_on = [aws_s3_bucket_public_access_block.public_access_block]
+  depends_on = [aws_s3_bucket_public_access_block.public_access_block, aws_s3_bucket_versioning.bucket_versioning, aws_s3_bucket_website_configuration.website]
 }
 
 resource "aws_s3_bucket_cors_configuration" "cors" {
