@@ -1,7 +1,3 @@
-data "aws_kms_alias" "s3" {
-  name = "alias/aws/s3"
-}
-
 resource "aws_s3_bucket" "bucket" {
   bucket = var.bucket_name
 
@@ -25,10 +21,8 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_sse" {
   bucket = aws_s3_bucket.bucket.id
   rule {
-    bucket_key_enabled = false
     apply_server_side_encryption_by_default {
-      kms_master_key_id = data.aws_kms_alias.s3.arn
-      sse_algorithm     = "aws:kms"
+      sse_algorithm = "AES256"
     }
   }
 }
