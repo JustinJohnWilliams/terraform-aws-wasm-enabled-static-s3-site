@@ -142,5 +142,5 @@ resource "aws_s3_object" "website_file" {
   bucket = aws_s3_bucket.bucket.bucket
   key    = each.value
   source = each.value
-  etag   = filemd5(each.value)
+  etag   = filemd5(each.value.filename)
 }
