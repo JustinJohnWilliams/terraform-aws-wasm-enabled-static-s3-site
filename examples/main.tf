@@ -1,7 +1,3 @@
-terraform {
-  required_version = ">= 1.2.9"
-}
-
 locals {
   aws_acount_id = ""
   env           = "sandbox"

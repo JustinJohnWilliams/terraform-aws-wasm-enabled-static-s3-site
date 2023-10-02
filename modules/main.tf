@@ -1,3 +1,8 @@
+terraform {
+  required_version = ">= 1.2.9"
+  backend "s3" {}
+}
+
 locals {
   bucket_name   = var.project_name
   function_name = "${var.project_name}-func"
