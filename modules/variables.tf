@@ -12,23 +12,14 @@ variable "aws_account_id" {
   type        = string
 }
 
-variable "env" {
-  description = "the environment name [dev, stage, prod]"
-  type        = string
-}
-
 variable "project_name" {
-  description = "the project name"
+  description = "the project name. this will be usedfor the s3 bucket name and the lambda name"
   type        = string
 }
 
 variable "zip_dir" {
   description = "the zip dir of the site contents"
   type        = string
-}
-
-variable "default_tags" {
-  type = map(any)
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -41,7 +32,15 @@ variable "site_index_page" {
   type        = string
 }
 
-variable "tags" {
-  type    = map(any)
-  default = {}
+variable "env" {
+  description = "the environment name [dev, stage, prod]"
+  type        = string
+  default     = ""
+}
+
+variable "default_tags" {
+  type = map(any)
+  default = {
+    "terraform-managed" = true
+  }
 }
