@@ -1,10 +1,6 @@
 locals {
   aws_acount_id = ""
-  env           = "sandbox"
   region        = "us-east-2"
-  tags = {
-    "terraform-manaed" = true
-  }
 }
 
 module "example_site" {
@@ -15,6 +11,4 @@ module "example_site" {
 
   aws_account_id = local.aws_acount_id
   region         = local.region
-  env            = local.env
-  default_tags   = local.tags
 }
