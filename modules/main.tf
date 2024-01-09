@@ -5,7 +5,7 @@ terraform {
 
 locals {
   bucket_name   = var.project_name
-  function_name = "${var.project_name}-func"
+  function_name = "${replace(var.project_name, ".", "-")}-func"
 }
 
 module "bucket" {
