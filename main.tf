@@ -1,6 +1,5 @@
 terraform {
   required_version = ">= 1.2.9"
-  backend "s3" {}
 }
 
 locals {
@@ -32,8 +31,9 @@ module "lambda" {
 module "cloudfront" {
   source = "./modules/cloudfront"
 
-  website_endpoint = module.bucket.bucket_info.website_endpoint
-  lambda_arn       = "${module.lambda.lambda_info.arn}:${module.lambda.lambda_info.version}"
+  website_endpoint    = module.bucket.bucket_info.website_endpoint
+  lambda_arn          = "${module.lambda.lambda_info.arn}:${module.lambda.lambda_info.version}"
+  default_root_object = var.site_index_page
 
   tags = var.default_tags
 }

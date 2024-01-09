@@ -15,7 +15,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
-  enabled = true
+  enabled             = true
+  default_root_object = var.default_root_object
 
   restrictions {
     geo_restriction {

@@ -12,6 +12,11 @@ variable "lambda_arn" {
   type        = string
 }
 
+variable "default_root_object" {
+  description = "Object that you want CF to return when an end user reqeusts the root URL"
+  type        = string
+}
+
 variable "tags" {
   type = map(any)
 }
