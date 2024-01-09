@@ -9,7 +9,7 @@ locals {
 }
 
 module "bucket" {
-  source = "./bucket"
+  source = "./modules/bucket"
 
   bucket_name     = local.bucket_name
   zip_dir         = var.zip_dir
@@ -21,7 +21,7 @@ module "bucket" {
 }
 
 module "lambda" {
-  source = "./lambda"
+  source = "./modules/lambda"
 
   function_name  = local.function_name
   aws_account_id = var.aws_account_id
@@ -30,7 +30,7 @@ module "lambda" {
 }
 
 module "cloudfront" {
-  source = "./cloudfront"
+  source = "./modules/cloudfront"
 
   website_endpoint = module.bucket.bucket_info.website_endpoint
   lambda_arn       = "${module.lambda.lambda_info.arn}:${module.lambda.lambda_info.version}"
