@@ -4,7 +4,7 @@ locals {
 }
 
 module "example_site" {
-  source = "git@github.com:JustinJohnWilliams/wasm-enabled-static-s3-site-module.git?ref=v1.2.0"
+  source = "git@github.com:JustinJohnWilliams/wasm-enabled-static-s3-site-module.git?ref=v1.3.0"
 
   project_name = "my.awesome.site"
   zip_dir      = "../site.zip"
