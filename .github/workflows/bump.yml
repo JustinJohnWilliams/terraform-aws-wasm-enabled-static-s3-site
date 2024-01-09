@@ -2,7 +2,7 @@ name: bump
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "**" ]
     paths: [ "modules/**" ]
 
 jobs:
@@ -30,7 +30,11 @@ jobs:
           MINOR=$(echo $LAST_TAG | awk -F "." '{print $2}')
           PATCH=$(echo $LAST_TAG | awk -F "." '{print $3}')
 
-          NEW_TAG="v$MAJOR.$MINOR.$(($PATCH + 1))"
+          if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
+            NEW_TAG="v$MAJOR.$((MINOR + 1)).0"
+          else
+            NEW_TAG="v$MAJOR.$MINOR.$((PATCH + 1))"
+          fi
 
           echo $NEW_TAG
 
