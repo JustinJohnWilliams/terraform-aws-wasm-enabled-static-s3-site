@@ -3,7 +3,7 @@ name: bump
 on:
   push:
     branches: [ "**" ]
-    paths: [ "modules/**" ]
+    paths-ignore: [ "examples/**" ]
 
 jobs:
   tag:
