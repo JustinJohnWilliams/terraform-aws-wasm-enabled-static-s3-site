@@ -22,6 +22,12 @@ variable "zip_dir" {
   type        = string
 }
 
+variable "force_destroy" {
+  description = "Wehther or not to delete all objects from the s3 bucket on destroy"
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   type = map(any)
 }

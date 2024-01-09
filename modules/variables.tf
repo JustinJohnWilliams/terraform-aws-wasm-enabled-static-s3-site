@@ -38,6 +38,12 @@ variable "env" {
   default     = ""
 }
 
+variable "force_bucket_destroy" {
+  description = "Whether or not to delete all bucket objects on destroy"
+  type        = bool
+  default     = false
+}
+
 variable "default_tags" {
   type = map(any)
   default = {

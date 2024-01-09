@@ -15,6 +15,7 @@ module "bucket" {
   zip_dir         = var.zip_dir
   aws_account_id  = var.aws_account_id
   site_index_page = var.site_index_page
+  force_destroy   = var.force_bucket_destroy
 
   tags = var.default_tags
 }
